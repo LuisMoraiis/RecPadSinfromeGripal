@@ -1,8 +1,8 @@
-import analysis.pre_processamento as preP
-import models.SVM as svm
+import analysis.estatisticas as statistic
 import models.DecisionTree as dt
+import models.SVM as svm
 
-y_true = preP.y_test
+y_true = statistic.y_test
 y_pred_svm = svm.y_pred
 y_pred_dt = dt.y_pred
 
@@ -12,3 +12,8 @@ def calc_erro(y_pred_modelo, y_true):
 
 def calc_corrPearson(Em1, Em2):
     return Em1.corr(Em2, method= 'pearson')
+
+Esvm = calc_erro(y_pred_svm, y_true)
+Edt = calc_erro(y_pred_dt, y_true)
+
+print(calc_corrPearson(Esvm, Edt))
