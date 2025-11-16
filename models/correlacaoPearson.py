@@ -1,19 +1,40 @@
-import analysis.estatisticas as statistic
-import models.DecisionTree as dt
+import analysis.targetMultiClasse as tmc
+import models.knn as knn
+import models.randomForest as rf
 import models.SVM as svm
 
-y_true = statistic.y_test
-y_pred_svm = svm.y_pred
-y_pred_dt = dt.y_pred
+"""
+REFATORAR O CALCULO DA CORRELAÇÃO DE PEARSON PARA O FORMATO DE MATRIX
+"""
 
-def calc_erro(y_pred_modelo, y_true):
+y_true = tmc.y_test
+
+dic_pred_models = {
+    "svm": svm.y_pred,
+    "rf": rf.y_pred,
+    "knn": knn.y_pred
+}
+
+def calc_erro(dic_pred_models):
+    erros = {}
+    for key, value in dic_pred_models.items():
+        erros[f"Erro {key}"] = (value != y_true).astype(int)
+
+    return erros
+
+def calc_corrPearson(erros):
+    dic_corrPearson = {}
+    for key1, value1 in erros.items():
+        for key2, value2 in erros.items():
+            dic_corrPearson[f"Correlação entre {key1} e {key2}:"] = value1.corr(value2, method= 'pearson')
+
+    print(dic_corrPearson)
+
+"""
+def calc_erro(y_pred_modelo):
     erro = (y_pred_modelo != y_true).astype(int)
     return erro
 
 def calc_corrPearson(Em1, Em2):
     return Em1.corr(Em2, method= 'pearson')
-
-Esvm = calc_erro(y_pred_svm, y_true)
-Edt = calc_erro(y_pred_dt, y_true)
-
-print(calc_corrPearson(Esvm, Edt))
+"""
