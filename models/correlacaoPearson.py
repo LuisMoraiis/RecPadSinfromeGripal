@@ -2,6 +2,7 @@ import analysis.targetMultiClasse as tmc
 import models.knn as knn
 import models.randomForest as rf
 import models.SVM as svm
+import models.xgboost as xgb
 
 """
 REFATORAR O CALCULO DA CORRELAÇÃO DE PEARSON PARA O FORMATO DE MATRIX
@@ -12,7 +13,8 @@ y_true = tmc.y_test
 dic_pred_models = {
     "svm": svm.y_pred,
     "rf": rf.y_pred,
-    "knn": knn.y_pred
+    "knn": knn.y_pred,
+    "XGboost": xgb.y_pred
 }
 
 def calc_erro(dic_pred_models):
@@ -30,6 +32,8 @@ def calc_corrPearson(erros):
 
     print(dic_corrPearson)
 
+
+calc_corrPearson(calc_erro(dic_pred_models))
 """
 def calc_erro(y_pred_modelo):
     erro = (y_pred_modelo != y_true).astype(int)
