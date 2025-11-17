@@ -1,3 +1,4 @@
+import analysis.estatisticas as stats
 import analysis.targetMultiClasse as tmc
 import models.knn as knn
 import models.randomForest as rf
@@ -8,7 +9,7 @@ import models.xgboost as xgb
 REFATORAR O CALCULO DA CORRELAÇÃO DE PEARSON PARA O FORMATO DE MATRIX
 """
 
-y_true = tmc.y_test
+y_true = stats.y_test
 
 dic_pred_models = {
     "svm": svm.y_pred,
