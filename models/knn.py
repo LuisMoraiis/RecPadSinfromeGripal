@@ -3,13 +3,12 @@ from sklearn.model_selection import GridSearchCV
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.preprocessing import StandardScaler
 
-import analysis.estatisticas as stats
 import analysis.pre_processamento as prep
-import analysis.targetMultiClasse as tmc
+import analysis.prep_dfc_completo as prepC
 
 scaler = StandardScaler()
-X_train = scaler.fit_transform(prep.X_train)
-X_test = scaler.fit_transform(prep.X_test)
+X_train = scaler.fit_transform(prepC.X_train)
+X_test = scaler.fit_transform(prepC.X_test)
 
 knn = KNeighborsClassifier()
 
@@ -21,8 +20,8 @@ param_grid = {
 
 grid = GridSearchCV(knn, param_grid, cv= 5, n_jobs= -1)
 
-grid.fit(X_train, prep.y_train)
+grid.fit(X_train, prepC.y_train)
 y_pred = grid.predict(X_test)
 
 print(f"Melhores parametros: {grid.best_params_}")
-print(classification_report(prep.y_test, y_pred))
+print(classification_report(prepC.y_test, y_pred))

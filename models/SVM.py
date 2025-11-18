@@ -2,9 +2,8 @@ from sklearn.metrics import classification_report
 from sklearn.model_selection import GridSearchCV
 from sklearn.svm import SVC
 
-import analysis.estatisticas as stats
 import analysis.pre_processamento as preP
-import analysis.targetMultiClasse as tmc
+import analysis.prep_dfc_completo as prepC
 
 svmModel = SVC(random_state= 14)
 
@@ -19,9 +18,9 @@ param_grid= {
 grid = GridSearchCV(svmModel, param_grid, cv= 5, n_jobs= -1)
 
 
-grid.fit(preP.X_train, preP.y_train)
+grid.fit(prepC.X_train, prepC.y_train)
 
-y_pred = grid.predict(preP.X_test)
+y_pred = grid.predict(prepC.X_test)
 
 print(f"Melhores parametros: {grid.best_params_}")
-print(classification_report(preP.y_test, y_pred))
+print(classification_report(prepC.y_test, y_pred))
