@@ -3,6 +3,7 @@ from sklearn.metrics import classification_report
 from sklearn.model_selection import GridSearchCV
 
 import analysis.estatisticas as stats
+import analysis.pre_processamento as prep
 import analysis.targetMultiClasse as tmc
 
 rf = RandomForestClassifier(random_state= 14)
@@ -17,8 +18,8 @@ param_grid = {
 }
 
 grid = GridSearchCV(rf, param_grid, cv= 5, n_jobs= -1)
-grid.fit(stats.X_train, stats.y_train)
-y_pred = grid.predict(stats.X_test)
+grid.fit(prep.X_train, prep.y_train)
+y_pred = grid.predict(prep.X_test)
 
 print(f"Melhores parametros: {grid.best_params_}")
-print(classification_report(stats.y_test, y_pred))
+print(classification_report(prep.y_test, y_pred))

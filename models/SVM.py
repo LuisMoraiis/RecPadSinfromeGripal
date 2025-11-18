@@ -19,9 +19,9 @@ param_grid= {
 grid = GridSearchCV(svmModel, param_grid, cv= 5, n_jobs= -1)
 
 
-grid.fit(stats.X_train, stats.y_train)
+grid.fit(preP.X_train, preP.y_train)
 
-y_pred = grid.predict(stats.X_test)
+y_pred = grid.predict(preP.X_test)
 
 print(f"Melhores parametros: {grid.best_params_}")
-print(classification_report(stats.y_test, y_pred))
+print(classification_report(preP.y_test, y_pred))
