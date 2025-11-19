@@ -2,10 +2,7 @@ from sklearn.metrics import classification_report
 from sklearn.model_selection import GridSearchCV
 from sklearn.svm import SVC
 
-import analysis.pre_processamento as preP
-import analysis.prep_dfc_completo as prepC
-
-svmModel = SVC(random_state= 14)
+svmModel = SVC(random_state= 14, probability= True)
 
 param_grid= {
     'C': [0.01, 0.1, 1, 10],
@@ -15,12 +12,11 @@ param_grid= {
     'probability': [True],
     'class_weight': [None, 'balanced']
 }
-grid = GridSearchCV(svmModel, param_grid, cv= 5, n_jobs= -1)
 
-
-grid.fit(prepC.X_train, prepC.y_train)
-
-y_pred = grid.predict(prepC.X_test)
-
-print(f"Melhores parametros: {grid.best_params_}")
-print(classification_report(prepC.y_test, y_pred))
+param_grid1 = {
+    'C': [0.1, 1],
+    'kernel': ['rbf', 'linear'],
+    'gamma': ['scale', 'auto'],
+    'class_weight': [None, 'balanced']
+}
+grid = GridSearchCV(svmModel, param_grid1, cv= 5, n_jobs= -1)

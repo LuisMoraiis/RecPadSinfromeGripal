@@ -13,15 +13,9 @@ X_test = scaler.fit_transform(prepC.X_test)
 knn = KNeighborsClassifier()
 
 param_grid = {
-    'n_neighbors': [3, 5, 7, 9, 11, 15],
+    'n_neighbors': [15, 20],
     'weights': ['uniform', 'distance'],
     'metric': ['euclidean', 'manhattan', 'minkowski']
 }
 
 grid = GridSearchCV(knn, param_grid, cv= 5, n_jobs= -1)
-
-grid.fit(X_train, prepC.y_train)
-y_pred = grid.predict(X_test)
-
-print(f"Melhores parametros: {grid.best_params_}")
-print(classification_report(prepC.y_test, y_pred))

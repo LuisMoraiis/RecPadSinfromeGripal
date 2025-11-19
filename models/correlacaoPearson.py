@@ -35,7 +35,7 @@ def calc_corrPearson(erros):
     print(dic_corrPearson)
 
 
-calc_corrPearson(calc_erro(dic_pred_models))
+corrPearson = calc_corrPearson(calc_erro(dic_pred_models))
 """
 def calc_erro(y_pred_modelo):
     erro = (y_pred_modelo != y_true).astype(int)

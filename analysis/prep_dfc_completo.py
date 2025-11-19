@@ -22,11 +22,7 @@ df = df.astype(int)
 X = df.drop(columns= ['Resultado do Teste Antigênico'])
 y = df['Resultado do Teste Antigênico']
 
-print(y.unique())
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size= 0.2, random_state= 14, stratify= y)
 
 underSampling = RandomUnderSampler(random_state= 14)
 X_train, y_train = underSampling.fit_resample(X_train, y_train)
-
-print(df.info())
-print(df.sample(10))
