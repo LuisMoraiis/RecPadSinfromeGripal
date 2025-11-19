@@ -1,46 +1,27 @@
-import analysis.estatisticas as stats
-import analysis.prep_dfc_completo as prepC
-import analysis.targetMultiClasse as tmc
+import pandas as pd
+
+import analysis.pre_processamento as prep
 import models.knn as knn
+import models.naive_bayes as nb
 import models.randomForest as rf
 import models.SVM as svm
 import models.xgboost as xgb
 
-"""
-REFATORAR O CALCULO DA CORRELAÇÃO DE PEARSON PARA O FORMATO DE MATRIX
-"""
-
-y_true = prepC.y_test
+y_true = prep.y_test.reset_index(drop=True)
 
 dic_pred_models = {
-    "svm": svm.y_pred,
-    "rf": rf.y_pred,
-    "knn": knn.y_pred,
-    "XGboost": xgb.y_pred
+    "svm": pd.Series(svm.y_pred).reset_index(drop=True),
+    "rf": pd.Series(rf.y_pred).reset_index(drop=True),
+    "knn": pd.Series(knn.y_pred).reset_index(drop=True),
+    "XGBoost": pd.Series(xgb.y_pred).reset_index(drop=True),
+    "naive_bayes": pd.Series(nb.y_pred).reset_index(drop=True)
 }
 
-def calc_erro(dic_pred_models):
+def calc_erro(dic_pred_models, y_true):
     erros = {}
-    for key, value in dic_pred_models.items():
-        erros[f"Erro {key}"] = (value != y_true).astype(int)
+    for nome, pred in dic_pred_models.items():
+        erros[nome] = (pred != y_true).astype(int)
+    return pd.DataFrame(erros)
 
-    return erros
-
-def calc_corrPearson(erros):
-    dic_corrPearson = {}
-    for key1, value1 in erros.items():
-        for key2, value2 in erros.items():
-            dic_corrPearson[f"Correlação entre {key1} e {key2}:"] = value1.corr(value2, method= 'pearson')
-
-    print(dic_corrPearson)
-
-
-corrPearson = calc_corrPearson(calc_erro(dic_pred_models))
-"""
-def calc_erro(y_pred_modelo):
-    erro = (y_pred_modelo != y_true).astype(int)
-    return erro
-
-def calc_corrPearson(Em1, Em2):
-    return Em1.corr(Em2, method= 'pearson')
-"""
+def calc_corrPearson(erros_df):
+    return erros_df.corr(method='pearson')
