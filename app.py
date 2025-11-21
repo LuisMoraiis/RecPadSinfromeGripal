@@ -8,7 +8,7 @@ import utils.helpersPlot as hp
 
 def button_download(fig):
     buffer = BytesIO()
-    fig.saving(buffer, format= "png")
+    fig.savefig(buffer, format= "png")
     return buffer.seek(0)
 
 
