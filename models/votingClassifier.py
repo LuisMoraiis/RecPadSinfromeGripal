@@ -1,3 +1,4 @@
+import numpy as np
 from sklearn.ensemble import VotingClassifier
 from sklearn.metrics import classification_report
 
@@ -29,22 +30,27 @@ modelos = {
     "Random Forest": rf.grid,
 }
 
+dic_pred_mod_proba = {}
 dic_pearson= {}
 for nome, modelo in modelos.items():
     modelo.fit(prep.X_train, prep.y_train)
     y_pred_modelo = modelo.predict(prep.X_test)
 
     dic_pearson[nome] = y_pred_modelo
-
+    dic_pred_mod_proba[nome] = modelo.predict_proba(prep.X_test)
     print(f"\n===== Classification Report: {nome} =====")
     print(classification_report(prep.y_test, y_pred_modelo))
 
 voting.fit(prep.X_train, prep.y_train)
 y_pred_voting = voting.predict(prep.X_test)
-
+y_pred_voting_proba = voting.predict_proba(prep.X_test)
 print("\n===== Correlação =====")
 result_corr = pearson.calc_corrPearson(pearson.calc_erro(dic_pearson, prep.y_test))
 print(result_corr)
 
 print("\n===== Classification Report: VotingClassifier =====")
 print(classification_report(prep.y_test, y_pred_voting))
+
+dic_ambiguitys = {}
+for nome, pred_modelo in dic_pred_mod_proba.items():
+    dic_ambiguitys[nome] = np.mean((pred_modelo - y_pred_voting_proba)**2)

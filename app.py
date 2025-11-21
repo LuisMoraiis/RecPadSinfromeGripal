@@ -24,3 +24,18 @@ st.download_button(
     file_name= "Correlação_Pearson.png",
     mime= "image/png"
 )
+
+st.subheader("Ambiguidade dos modelos em relação ao ensemble")
+st.write("A ambiguidade do modelo em relação ao ensemble mede o quanto aquele modelo discorda do ensemble.")
+st.latex(r"""
+\text{ambi}(h_i) = \frac{1}{N} \sum_{j=1}^{N} \left( h_i(x_j) - M(x_j) \right)^2
+""")
+
+fig2 = hp.exibe_ambiguitys(vc.dic_ambiguitys)
+st.pyplot(fig2)
+st.download_button(
+    label= "📥 Baixar gráfico",
+    data= button_download(fig2),
+    file_name= "Ambiguidade.png",
+    mime= "image/png"
+)
