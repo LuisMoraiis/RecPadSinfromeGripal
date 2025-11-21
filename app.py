@@ -9,7 +9,8 @@ import utils.helpersPlot as hp
 def button_download(fig):
     buffer = BytesIO()
     fig.savefig(buffer, format= "png")
-    return buffer.seek(0)
+    buffer.seek(0)
+    return buffer
 
 
 st.title("Compilado de informações pro artigo")
