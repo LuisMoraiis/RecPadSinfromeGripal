@@ -43,7 +43,8 @@ voting.fit(prep.X_train, prep.y_train)
 y_pred_voting = voting.predict(prep.X_test)
 
 print("\n===== Correlação =====")
-print(pearson.calc_corrPearson(pearson.calc_erro(dic_pearson, prep.y_test)))
+result_corr = pearson.calc_corrPearson(pearson.calc_erro(dic_pearson, prep.y_test))
+print(result_corr)
 
 print("\n===== Classification Report: VotingClassifier =====")
 print(classification_report(prep.y_test, y_pred_voting))
