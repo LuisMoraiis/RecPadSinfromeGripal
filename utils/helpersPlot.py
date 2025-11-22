@@ -22,6 +22,6 @@ def exibe_ambiguitys(dic_ambiguitys):
     ax.set_xlabel("Modelo", fontsize= 12)
     ax.set_ylabel("Ambiguidade", fontsize= 12)
     ax.grid(axis= 'y', linestyle= '--', alpha= 0.7)
-    ax.xticks(rotation= 45)
+    plt.xticks(rotation=45)
 
     return fig
