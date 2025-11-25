@@ -20,7 +20,7 @@ param_grid1 = {
     'n_estimators': [100, 200],
     'max_features': ['sqrt'],
     'max_depth': [30, 40],
-    'min_samples_split': [2, 5, 10],
+    'min_samples_split': [5, 10],
     'min_samples_leaf': [4, 6],
     'bootstrap': [True, False]
 }

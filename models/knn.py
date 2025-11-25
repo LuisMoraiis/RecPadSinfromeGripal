@@ -18,4 +18,11 @@ param_grid = {
     'metric': ['euclidean', 'manhattan', 'minkowski']
 }
 
-grid = GridSearchCV(knn, param_grid, cv= 5, n_jobs= -1)
+
+param_grid1 = {
+    'n_neighbors': [15, 20],
+    'weights': ['uniform', 'distance'],
+    'metric': ['manhattan']
+}
+
+grid = GridSearchCV(knn, param_grid1, cv= 5, n_jobs= -1)

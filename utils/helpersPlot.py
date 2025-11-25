@@ -25,3 +25,14 @@ def exibe_ambiguitys(dic_ambiguitys):
     plt.xticks(rotation=45)
 
     return fig
+
+def exibi_bias_variance_covariance_decomposition(dic):
+    fig, ax = plt.subplots(figsize= (8, 6))
+    ax.bar(dic.keys(), dic.values())
+    ax.set_title("Contribuição dos componentes para cada erro")
+    ax.set_xlabel("Metricas", fontsize= 12)
+    ax.set_ylabel("Erro", fontsize= 12)
+    ax.grid(axis= 'y', linestyle= '--', alpha= 0.7)
+    plt.xticks(rotation=45)
+
+    return fig

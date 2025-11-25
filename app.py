@@ -29,7 +29,7 @@ st.download_button(
 st.subheader("Ambiguidade dos modelos em relação ao ensemble")
 st.write("A ambiguidade do modelo em relação ao ensemble mede o quanto aquele modelo discorda do ensemble.")
 st.latex(r"""
-\text{ambi}(h_i) = \frac{1}{N} \sum_{j=1}^{N} \left( h_i(x_j) - M(x_j) \right)^2
+\text{ambi}(h_i) = \frac{1}{N} \sum_{j=1}^{N} \left( h_i(x_j) - H(x_j) \right)^2
 """)
 
 fig2 = hp.exibe_ambiguitys(vc.dic_ambiguitys)
@@ -37,6 +37,19 @@ st.pyplot(fig2)
 st.download_button(
     label= "📥 Baixar gráfico",
     data= button_download(fig2),
+    file_name= "Ambiguidade.png",
+    mime= "image/png"
+)
+
+st.subheader("Bias-Variance-Covariance Decomposition")
+
+
+fig3 = hp.exibi_bias_variance_covariance_decomposition(vc.decomp)
+st.pyplot(fig3)
+
+st.download_button(
+    label= "📥 Baixar gráfico",
+    data= button_download(fig3),
     file_name= "Ambiguidade.png",
     mime= "image/png"
 )
